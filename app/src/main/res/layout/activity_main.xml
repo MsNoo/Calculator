@@ -188,16 +188,16 @@
             android:id="@+id/root"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="1"
-            app:cornerRadius="36dp"
-            android:layout_marginRight="4dp"
             android:layout_marginLeft="4dp"
+            android:layout_marginRight="4dp"
+            android:layout_weight="1"
             android:backgroundTint="@color/ghost_white"
-            android:textColor="@color/black"
-            android:text="@string/root"
             android:fontFamily="@font/gudea_regular"
+            android:onClick="rootBTN"
+            android:text="@string/root"
+            android:textColor="@color/black"
             android:textSize="29sp"
-            />
+            app:cornerRadius="36dp" />
 
     </LinearLayout>
 

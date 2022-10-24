@@ -8,6 +8,11 @@ import android.text.SpannableStringBuilder;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import javax.script.ScriptEngine;
+import javax.script.ScriptEngineManager;
+import javax.script.ScriptException;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -50,7 +55,20 @@ public class MainActivity extends AppCompatActivity {
     private void setSmallScr(String valueBtn){
         textForSmallScr = textForSmallScr + valueBtn;
         displayInSmallScr.setText(textForSmallScr);
+    }
 
+    public void equalBTN(View view){
+        Double result = null;
+        ScriptEngine engine = new ScriptEngineManager().getEngineByName("rhino");
+        try {
+            result = (double)engine.eval(textForSmallScr);
+        } catch (ScriptException e) {
+            Toast.makeText(this,"Try better", Toast.LENGTH_SHORT).show();
+        }
+
+        if (result != null){
+            display.setText(String.valueOf(result.doubleValue()));
+        }
     }
 
     public void zeroBTN(View view){
@@ -123,6 +141,11 @@ public class MainActivity extends AppCompatActivity {
         setSmallScr("/");
     }
 
+    public void rootBTN(View view){
+        updateText("√");
+        setSmallScr("√");
+    }
+
     public void ceBTN(View view){
         display.setText("");
         displayInSmallScr.setText("");
@@ -152,9 +175,7 @@ public class MainActivity extends AppCompatActivity {
         updateText(".");
     }
 
-    public void equalBTN(View view){
 
-    }
 
 
 }
