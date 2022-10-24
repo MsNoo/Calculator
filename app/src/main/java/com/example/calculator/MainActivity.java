@@ -12,6 +12,9 @@ import android.widget.TextView;
 public class MainActivity extends AppCompatActivity {
 
     private EditText display;
+    private TextView displayInSmallScr;
+
+    String textForSmallScr = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -19,6 +22,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         display = findViewById(R.id.calculatorScreen);
+        displayInSmallScr = findViewById(R.id.calculatorScreenSmall);
         display.setShowSoftInputOnFocus(false);
 
         display.setOnClickListener(view -> {
@@ -41,85 +45,94 @@ public class MainActivity extends AppCompatActivity {
             display.setText(String.format("%s%s%s", leftStr, stringToAdd, rightStr));
             display.setSelection(cursorPos + 1);
         }
+    }
 
+    private void setSmallScr(String valueBtn){
+        textForSmallScr = textForSmallScr + valueBtn;
+        displayInSmallScr.setText(textForSmallScr);
 
     }
 
     public void zeroBTN(View view){
         updateText("0");
+        setSmallScr("0");
     }
 
     public void oneBTN(View view){
         updateText("1");
-
+        setSmallScr("1");
     }
 
     public void twoBTN(View view){
         updateText("2");
-
+        setSmallScr("2");
     }
 
     public void threeBTN(View view){
         updateText("3");
-
+        setSmallScr("3");
     }
 
     public void fourBTN(View view){
         updateText("4");
-
+        setSmallScr("4");
     }
 
     public void fiveBTN(View view){
         updateText("5");
-
+        setSmallScr("5");
     }
 
     public void sixBTN(View view){
         updateText("6");
-
+        setSmallScr("6");
     }
 
     public void sevenBTN(View view){
         updateText("7");
-
+        setSmallScr("7");
     }
 
     public void eightBTN(View view){
         updateText("8");
-
+        setSmallScr("8");
     }
 
     public void nineBTN(View view){
         updateText("9");
-
+        setSmallScr("9");
     }
 
     public void minusBTN(View view){
         updateText("-");
-
+        setSmallScr("-");
     }
 
     public void plusBTN(View view){
         updateText("+");
-
+        setSmallScr("+");
     }
 
     public void multiplicationBTN(View view){
         updateText("*");
-
+        setSmallScr("*");
     }
 
     public void divisionBTN(View view){
         updateText("/");
-
+        setSmallScr("/");
     }
 
     public void ceBTN(View view){
         display.setText("");
+        displayInSmallScr.setText("");
+        textForSmallScr = "";
     }
 
     public void cBTN(View view){
         display.setText("");
+        displayInSmallScr.setText("");
+        textForSmallScr = "";
     }
 
     public void arrowBTN(View view){
@@ -129,6 +142,8 @@ public class MainActivity extends AppCompatActivity {
             SpannableStringBuilder selection = (SpannableStringBuilder) display.getText();
             selection.replace(cursorPos - 1, cursorPos, "");
             display.setText(selection);
+            displayInSmallScr.setText(selection);
+            textForSmallScr = String.valueOf(selection);
             display.setSelection(cursorPos - 1);
         }
     }
