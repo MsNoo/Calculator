@@ -5,10 +5,10 @@
     <string name="MS">MS</string>
     <string name="M_plus">M+</string>
     <string name="M_minus">M-</string>
-    <string name="arrow">⬅</string>
+    <string name="arrow">←</string>
     <string name="CE">CE</string>
     <string name="C">C</string>
-    <string name="plus_minus">+/-</string>
+    <string name="plus_minus">±</string>
     <string name="root">√</string>
     <string name="zero">0</string>
     <string name="one">1</string>
@@ -20,7 +20,7 @@
     <string name="seven">7</string>
     <string name="eight">8</string>
     <string name="nine">9</string>
-    <string name="coma">,</string>
+    <string name="coma">.</string>
     <string name="division">/</string>
     <string name="multiplication">*</string>
     <string name="sum">+</string>
@@ -28,4 +28,5 @@
     <string name="percentages">%</string>
     <string name="divide_by_x">1/x</string>
     <string name="equal">=</string>
+    <string name="display">0</string>
 </resources>
