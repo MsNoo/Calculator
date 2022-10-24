@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
-    android:weightSum="8"
+    android:weightSum="9"
     tools:context=".MainActivity">
 
     <TextView
@@ -28,13 +28,14 @@
         android:layout_width="match_parent"
         android:layout_height="0sp"
         android:gravity="bottom|end"
-        android:layout_weight="1"
+        android:layout_weight="2"
         android:padding="15dp"
         android:layout_margin="10dp"
         android:textSize="38sp"
         android:fontFamily="@font/gudea_regular"
         android:textColor="@color/black"
         android:background="@color/white"
+        android:maxLength="18"
         android:text="@string/display"
         />
 
@@ -178,7 +179,6 @@
             android:layout_weight="1"
             android:backgroundTint="@color/ghost_white"
             android:fontFamily="@font/gudea_regular"
-            android:onClick="plusMinusBTN"
             android:text="@string/plus_minus"
             android:textColor="@color/black"
             android:textSize="19sp"
