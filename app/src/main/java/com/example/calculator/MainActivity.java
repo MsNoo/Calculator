@@ -6,6 +6,7 @@ import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.text.SpannableStringBuilder;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -19,6 +20,8 @@ public class MainActivity extends AppCompatActivity {
     private EditText display;
     private TextView displayInSmallScr;
 
+    Button root;
+
     String textForSmallScr = "";
 
     @Override
@@ -28,11 +31,23 @@ public class MainActivity extends AppCompatActivity {
 
         display = findViewById(R.id.calculatorScreen);
         displayInSmallScr = findViewById(R.id.calculatorScreenSmall);
+        root = findViewById(R.id.root);
+
         display.setShowSoftInputOnFocus(false);
 
         display.setOnClickListener(view -> {
             if(getString(R.string.display).equals(display.getText().toString())){
                 display.setText("");
+            }
+        });
+
+        root.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String vals = display.getText().toString();
+                double rs = Math.sqrt(Double.parseDouble(vals));
+                display.setText(String.valueOf(rs));
+                displayInSmallScr.setText(String.valueOf("√("+vals+")"));
             }
         });
     }
@@ -69,6 +84,7 @@ public class MainActivity extends AppCompatActivity {
         if (result != null){
             display.setText(String.valueOf(result.doubleValue()));
         }
+
     }
 
     public void zeroBTN(View view){
@@ -170,12 +186,4 @@ public class MainActivity extends AppCompatActivity {
             display.setSelection(cursorPos - 1);
         }
     }
-
-    public void comaBTN(View view){
-        updateText(".");
-    }
-
-
-
-
 }
