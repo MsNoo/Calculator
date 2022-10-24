@@ -10,7 +10,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import javax.script.ScriptEngine;
 import javax.script.ScriptEngineManager;
 import javax.script.ScriptException;
@@ -18,7 +17,6 @@ import javax.script.ScriptException;
 public class MainActivity extends AppCompatActivity {
 
     private EditText display;
-    EditText editText;
     private TextView displayInSmallScr;
 
     Button root;
@@ -35,8 +33,6 @@ public class MainActivity extends AppCompatActivity {
         displayInSmallScr = findViewById(R.id.calculatorScreenSmall);
         root = findViewById(R.id.root);
         plusMinus = findViewById(R.id.plus_minus);
-        editText = findViewById(R.id.calculatorScreen);
-
 
         display.setShowSoftInputOnFocus(false);
 
@@ -62,36 +58,37 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 String vals = display.getText().toString();
                 double temp = Double.parseDouble(vals);
-                if(temp < 0){
-                    double rs = Math.abs(Double.parseDouble(vals));
-                    textForSmallScr = String.valueOf(rs);
-                    display.setText(String.valueOf(rs));
-                    displayInSmallScr.setText(String.valueOf(rs));
-                }
-               else{
-                    double rs = -temp;
-                    textForSmallScr = String.valueOf(rs);
-                    updateText(textForSmallScr);
-                    display.setText(String.valueOf(rs));
-                    displayInSmallScr.setText(String.valueOf(rs));
+                if(temp != 0) {
+                    if (temp < 0) {
+                        double rs = Math.abs(Double.parseDouble(vals));
+                        textForSmallScr = String.valueOf(rs);
+                        display.setText(String.valueOf(rs));
+                        displayInSmallScr.setText(String.valueOf(rs));
+                    } else {
+                        double rs = -temp;
+                        textForSmallScr = String.valueOf(rs);
+                        updateText(textForSmallScr);
+                        display.setText(String.valueOf(rs));
+                        displayInSmallScr.setText(String.valueOf(rs));
+                    }
                 }
             }
         });
     }
 
     private void updateText(String stringToAdd){
-        display.setSelection(editText.getText().length());
+        display.setSelection(display.getText().length());
         String oldStr = display.getText().toString();
         int cursorPos = display.getSelectionStart();
         String leftStr = oldStr.substring(0, cursorPos);
         String rightStr = oldStr.substring(cursorPos);
         if(getString(R.string.display).equals(display.getText().toString())){
             display.setText(stringToAdd);
-            display.setSelection(editText.getText().length());
+            display.setSelection(display.getText().length());
         }
         else{
             display.setText(String.format("%s%s%s", leftStr, stringToAdd, rightStr));
-            display.setSelection(editText.getText().length());
+            display.setSelection(display.getText().length());
         }
     }
 
