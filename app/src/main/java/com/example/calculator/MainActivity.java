@@ -1,8 +1,6 @@
 package com.example.calculator;
 
 import androidx.appcompat.app.AppCompatActivity;
-
-import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.text.SpannableStringBuilder;
 import android.view.View;
@@ -18,10 +16,8 @@ public class MainActivity extends AppCompatActivity {
 
     private EditText display;
     private TextView displayInSmallScr;
-
     Button root;
     Button plusMinus;
-
     String textForSmallScr = "";
 
     @Override
@@ -35,42 +31,35 @@ public class MainActivity extends AppCompatActivity {
         plusMinus = findViewById(R.id.plus_minus);
 
         display.setShowSoftInputOnFocus(false);
-
         display.setOnClickListener(view -> {
             if(getString(R.string.display).equals(display.getText().toString())){
                 display.setText("");
             }
         });
 
-        root.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                String vals = display.getText().toString();
-                double rs = Math.sqrt(Double.parseDouble(vals));
-                display.setText(String.valueOf(rs));
-                displayInSmallScr.setText(String.valueOf("√("+vals+")"));
-                textForSmallScr = String.valueOf(rs);
-            }
+        root.setOnClickListener(view -> {
+            String valStr = display.getText().toString();
+            double result = Math.sqrt(Double.parseDouble(valStr));
+            display.setText(String.valueOf(result));
+            displayInSmallScr.setText("√(" + valStr + ")");
+            textForSmallScr = String.valueOf(result);
         });
 
-        plusMinus.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                String vals = display.getText().toString();
-                double temp = Double.parseDouble(vals);
-                if(temp != 0) {
-                    if (temp < 0) {
-                        double rs = Math.abs(Double.parseDouble(vals));
-                        textForSmallScr = String.valueOf(rs);
-                        display.setText(String.valueOf(rs));
-                        displayInSmallScr.setText(String.valueOf(rs));
-                    } else {
-                        double rs = -temp;
-                        textForSmallScr = String.valueOf(rs);
-                        updateText(textForSmallScr);
-                        display.setText(String.valueOf(rs));
-                        displayInSmallScr.setText(String.valueOf(rs));
-                    }
+        plusMinus.setOnClickListener(view -> {
+            String valStr = display.getText().toString();
+            double temp = Double.parseDouble(valStr);
+            if(temp != 0) {
+                if (temp < 0) {
+                    double result = Math.abs(Double.parseDouble(valStr));
+                    textForSmallScr = String.valueOf(result);
+                    display.setText(String.valueOf(result));
+                    displayInSmallScr.setText(String.valueOf(result));
+                } else {
+                    double result = -temp;
+                    textForSmallScr = String.valueOf(result);
+                    updateText(textForSmallScr);
+                    display.setText(String.valueOf(result));
+                    displayInSmallScr.setText(String.valueOf(result));
                 }
             }
         });
@@ -185,6 +174,11 @@ public class MainActivity extends AppCompatActivity {
         setSmallScr("√");
     }
 
+    public void commaBTN(View view){
+        updateText(".");
+        setSmallScr(".");
+    }
+
     public void ceBTN(View view){
         display.setText("");
         displayInSmallScr.setText("");
@@ -198,6 +192,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void arrowBTN(View view){
+        display.setSelection(display.getText().length());
         int cursorPos = display.getSelectionStart();
         int textLength = display.getText().length();
         if(cursorPos != 0 && textLength != 0){
