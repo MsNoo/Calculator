@@ -38,46 +38,62 @@ public class MainActivity extends AppCompatActivity {
         });
 
         root.setOnClickListener(view -> {
-            String valStr = display.getText().toString();
-            double result = Math.sqrt(Double.parseDouble(valStr));
-            display.setText(String.valueOf(result));
-            displayInSmallScr.setText("√(" + valStr + ")");
-            textForSmallScr = String.valueOf(result);
+            try {
+                String valStr = display.getText().toString();
+                double result = Math.sqrt(Double.parseDouble(valStr));
+                display.setText(String.valueOf(result));
+                displayInSmallScr.setText("√(" + valStr + ")");
+                textForSmallScr = String.valueOf(result);
+            }
+            catch (Exception e){
+                Toast.makeText(this,"What was that?", Toast.LENGTH_SHORT).show();
+            }
         });
 
         plusMinus.setOnClickListener(view -> {
-            String valStr = display.getText().toString();
-            double temp = Double.parseDouble(valStr);
-            if(temp != 0) {
-                if (temp < 0) {
-                    double result = Math.abs(Double.parseDouble(valStr));
-                    textForSmallScr = String.valueOf(result);
-                    display.setText(String.valueOf(result));
-                    displayInSmallScr.setText(String.valueOf(result));
-                } else {
-                    double result = -temp;
-                    textForSmallScr = String.valueOf(result);
-                    updateText(textForSmallScr);
-                    display.setText(String.valueOf(result));
-                    displayInSmallScr.setText(String.valueOf(result));
+            try {
+                String valStr = display.getText().toString();
+                double temp = Double.parseDouble(valStr);
+                if(temp != 0) {
+                    if (temp < 0) {
+                        double result = Math.abs(Double.parseDouble(valStr));
+                        textForSmallScr = String.valueOf(result);
+                        display.setText(String.valueOf(result));
+                        displayInSmallScr.setText(String.valueOf(result));
+                    } else {
+                        double result = -temp;
+                        textForSmallScr = String.valueOf(result);
+                        updateText(textForSmallScr);
+                        display.setText(String.valueOf(result));
+                        displayInSmallScr.setText(String.valueOf(result));
+                    }
                 }
+            }
+            catch (Exception e){
+                Toast.makeText(this,"What was that?", Toast.LENGTH_SHORT).show();
             }
         });
     }
 
     private void updateText(String stringToAdd){
         display.setSelection(display.getText().length());
-        String oldStr = display.getText().toString();
-        int cursorPos = display.getSelectionStart();
-        String leftStr = oldStr.substring(0, cursorPos);
-        String rightStr = oldStr.substring(cursorPos);
-        if(getString(R.string.display).equals(display.getText().toString())){
-            display.setText(stringToAdd);
+        try {
+            String oldStr = display.getText().toString();
+            int cursorPos = display.getSelectionStart();
             display.setSelection(display.getText().length());
+            String leftStr = oldStr.substring(0, cursorPos);
+            String rightStr = oldStr.substring(cursorPos);
+            if(getString(R.string.display).equals(display.getText().toString())){
+                display.setText(stringToAdd);
+                display.setSelection(display.getText().length());
+            }
+            else{
+                display.setText(String.format("%s%s%s", leftStr, stringToAdd, rightStr));
+                display.setSelection(display.getText().length());
+            }
         }
-        else{
-            display.setText(String.format("%s%s%s", leftStr, stringToAdd, rightStr));
-            display.setSelection(display.getText().length());
+        catch (Exception e) {
+            Toast.makeText(this,"What was that?", Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -92,7 +108,7 @@ public class MainActivity extends AppCompatActivity {
         try {
             result = (double)engine.eval(textForSmallScr);
         } catch (ScriptException e) {
-            Toast.makeText(this,"Try better", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this,"What was that?", Toast.LENGTH_SHORT).show();
         }
         if (result != null){
             display.setText(String.valueOf(result.doubleValue()));
@@ -192,16 +208,21 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void arrowBTN(View view){
-        display.setSelection(display.getText().length());
-        int cursorPos = display.getSelectionStart();
-        int textLength = display.getText().length();
-        if(cursorPos != 0 && textLength != 0){
-            SpannableStringBuilder selection = (SpannableStringBuilder) display.getText();
-            selection.replace(cursorPos - 1, cursorPos, "");
-            display.setText(selection);
-            displayInSmallScr.setText(selection);
-            textForSmallScr = String.valueOf(selection);
-            display.setSelection(cursorPos - 1);
+        try {
+            int cursorPos = display.getSelectionStart();
+            int textLength = display.getText().length();
+            if(cursorPos != 0 && textLength != 0){
+                SpannableStringBuilder selection = (SpannableStringBuilder) display.getText();
+                selection.replace(cursorPos - 1, cursorPos, "");
+                display.setText(selection);
+                displayInSmallScr.setText(selection);
+                textForSmallScr = String.valueOf(selection);
+                display.setSelection(cursorPos - 1);
+            }
         }
+        catch (Exception e){
+            Toast.makeText(this,"What was that?", Toast.LENGTH_SHORT).show();
+        }
+        display.setSelection(display.getText().length());
     }
 }
